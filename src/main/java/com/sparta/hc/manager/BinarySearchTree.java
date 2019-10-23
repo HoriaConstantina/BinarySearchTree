@@ -25,63 +25,75 @@ public class BinarySearchTree implements BinaryTree {
     public void addElement(int element) {
         Node node = new Node(element);
         Node x = root;
-        Node y = null;
+        boolean runs = true;
 
-        while (x != null) {
-            y = x;
-            if (element < x.getData()) {
-                x = x.getLeft();
-            } else {
-                x = x.getRight();
+        while (runs) {
+            if (element < x.getData()){
+                if (x.getLeft() == null){
+                    x.setLeft(node);
+                }
+                else {
+                    x = x.getLeft();
+                }
+//                runs = false;
             }
 
-
-            if (y == null) {
-                y = node;
-            } else if (element < y.getData()) {
-                y.setLeft(node);
-            } else {
-                y.setRight(node);
+            else {
+                if (x.getRight() == null){
+                    x.setRight(node);
+                }
+                else {
+                    x = x.getRight();
+                }
+                runs = false;
             }
         }
     }
 
     @Override
     public void addElements(int[] elements) {
-
+        for (int i : elements){
+            addElement(i);
+        }
     }
 
     @Override
     public boolean findElement(int value) {
         boolean found = false;
-        Node node = new Node(value);
+        Node node = root;
 
-        if (node.equals(value)){
-            found = true;
-        }
-        else {
-            found = false;
+        while (node != null){
+
         }
 
         return found;
+
     }
 
     @Override
-    public Node getLeftChild(int element) throws ChildNotFoundException {
-        Node node = new Node(element);
-        node = node.getLeft();
-        return node;
+    public int getLeftChild(int element) throws ChildNotFoundException {
+        return element;
     }
 
     @Override
-    public Node getRightChild(int element) throws ChildNotFoundException {
-        Node node = new Node(element);
-        node = node.getRight();
-        return node;
+    public int getRightChild(int element) throws ChildNotFoundException {
+        return element;
     }
 
     @Override
     public int[] getSortedTreeAsc() {
+        Node node = root;
+        Node left;
+        Node right;
+
+        if (node != null){
+            left = node.getLeft();
+            root.getData();
+            right = node.getRight();
+
+            System.out.println(left + ", " + root.getData() + ", "+ right);
+        }
+
         return new int[0];
     }
 

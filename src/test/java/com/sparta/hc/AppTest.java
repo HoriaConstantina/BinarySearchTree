@@ -19,16 +19,34 @@ public class AppTest
     @Test
     public void shouldAnswerWithTrue()
     {
-        int x = 12;
+        int x = 10;
+        int y = 16;
         BinarySearchTree tree = new BinarySearchTree(12);
-        Node node = new Node(12);
+
         tree.addElement(8);
         tree.addElement(12);
         tree.addElement(11);
-        tree.addElement(10);
-        tree.addElement(16);
+        tree.addElement(x);
+        tree.addElement(y);
 
-
-
+        assertEquals(true, tree.getRootElement() == 12);
     }
+
+    @Test
+    public void find()
+    {
+        int x = 10;
+        int y = 16;
+        BinarySearchTree tree = new BinarySearchTree(12);
+
+        tree.addElement(8);
+        tree.addElement(12);
+        tree.addElement(11);
+        tree.addElement(x);
+        tree.addElement(y);
+
+        assertEquals(true, tree.findElement(1564865));
+    }
+
+
 }

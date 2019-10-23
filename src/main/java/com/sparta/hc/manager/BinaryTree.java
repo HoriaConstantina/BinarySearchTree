@@ -17,9 +17,9 @@ public interface BinaryTree {
 
     boolean findElement(int value);
 
-    Node getLeftChild(int element) throws ChildNotFoundException;
+    int getLeftChild(int element) throws ChildNotFoundException;
 
-    Node getRightChild(int element) throws ChildNotFoundException;
+    int getRightChild(int element) throws ChildNotFoundException;
 
     int[] getSortedTreeAsc();
 
