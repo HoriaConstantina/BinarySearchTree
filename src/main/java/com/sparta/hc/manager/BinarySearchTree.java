@@ -19,6 +19,7 @@ public class BinarySearchTree implements BinaryTree {
     @Override
     public int getNumberOfElements() {
         return 0;
+
     }
 
     @Override
@@ -26,6 +27,7 @@ public class BinarySearchTree implements BinaryTree {
         Node node = new Node(element);
         Node x = root;
         boolean runs = true;
+
 
         while (runs) {
             if (element < x.getData()){
@@ -59,11 +61,26 @@ public class BinarySearchTree implements BinaryTree {
 
     @Override
     public boolean findElement(int value) {
+        Node node = new Node(value);
         boolean found = false;
-        Node node = root;
+        Node x = root;
 
         while (node != null){
+            if (value == x.getData()){
+                if (x.getLeft() != null){
+                    x = x.getLeft();
+                    found = true;
+                }
+                else if (x.getRight() != null){
+                    x = x.getRight();
+                    found = true;
+                }
 
+                else {
+                    found = false;
+                }
+            }
+            break;
         }
 
         return found;
@@ -86,6 +103,7 @@ public class BinarySearchTree implements BinaryTree {
         Node left;
         Node right;
 
+
         if (node != null){
             left = node.getLeft();
             root.getData();
@@ -93,6 +111,8 @@ public class BinarySearchTree implements BinaryTree {
 
             System.out.println(left + ", " + root.getData() + ", "+ right);
         }
+
+
 
         return new int[0];
     }

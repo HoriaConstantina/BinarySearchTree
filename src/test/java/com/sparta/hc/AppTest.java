@@ -45,7 +45,27 @@ public class AppTest
         tree.addElement(x);
         tree.addElement(y);
 
-        assertEquals(true, tree.findElement(1564865));
+        assertEquals(true, tree.findElement(45));
+    }
+
+    @Test
+    public void getSortedTreeAsc(){
+        int x = 10;
+        int y = 16;
+        BinarySearchTree tree = new BinarySearchTree(12);
+
+        tree.addElement(8);
+        tree.addElement(12);
+        tree.addElement(11);
+        tree.addElement(x);
+        tree.addElement(y);
+
+
+    }
+
+    @Test
+    public void getSortedTreeDesc(){
+
     }
 
 
