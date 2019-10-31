@@ -50,6 +50,7 @@ public class AppTest
 
     @Test
     public void getSortedTreeAsc(){
+        int[] array = {8, 10, 11, 12, 16};
         int x = 10;
         int y = 16;
         BinarySearchTree tree = new BinarySearchTree(12);
@@ -59,6 +60,8 @@ public class AppTest
         tree.addElement(11);
         tree.addElement(x);
         tree.addElement(y);
+
+        assertEquals(array, tree.getSortedTreeAsc());
 
 
     }
