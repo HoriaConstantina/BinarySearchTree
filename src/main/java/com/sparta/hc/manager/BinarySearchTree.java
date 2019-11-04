@@ -5,9 +5,9 @@ import com.sparta.hc.exceptions.ChildNotFoundException;
 public class BinarySearchTree implements BinaryTree {
 
     private Node root;
-    private int indexCount = 1;
-    private int indexCount2 = 1;
-    private int arrayIndex = 0;
+    private int indexCount = 0;
+    private int indexCount2 = 0;
+    private int arrayIndex = 1;
 
     public BinarySearchTree(int value) {
         root = new Node(value);
@@ -22,35 +22,36 @@ public class BinarySearchTree implements BinaryTree {
 
     @Override
     public int getRootElement() {
-        return root.getData();
+        return root.getValue();
     }
 
     @Override
     public int getNumberOfElements() {
-        return indexCount;
+        return arrayIndex;
     }
 
     @Override
     public void addElement(int element) {
-        boolean spaceForNodeFound = true;
-        Node currentNode = root;
-        while (spaceForNodeFound == true) {
-            if (element < currentNode.getData()) {
-                if (currentNode.getLeft() == null) {
-                    currentNode.setLeft(new Node(element));
-                    spaceForNodeFound = false;
-                    indexCount++;
+        boolean runs = true;
+        Node node = root;
+
+        while (runs) {
+            if (element < node.getValue()) {
+                if (node.getLeft() == null) {
+                    node.setLeft(new Node(element));
+                    runs = false;
+                    arrayIndex++;
                 } else {
-                    currentNode = currentNode.getLeft();
+                    node = node.getLeft();
                 }
             }
             else {
-                if (currentNode.getRight() == null) {
-                    currentNode.setRight(new Node(element));
-                    spaceForNodeFound= false;
-                    indexCount++;
+                if (node.getRight() == null) {
+                    node.setRight(new Node(element));
+                    runs= false;
+                    arrayIndex++;
                 } else {
-                    currentNode = currentNode.getRight();
+                    node = node.getRight();
                 }
             }
         }
@@ -65,29 +66,29 @@ public class BinarySearchTree implements BinaryTree {
 
     @Override
     public boolean findElement(int value) {
-        boolean foundOrNot = false;
-        Node nodeToFind = root;
-        while (nodeToFind!=null) {
-            if (value == nodeToFind.getData()) {
-                foundOrNot = true;
+        boolean found = false;
+        Node node = root;
+        while (node!=null) {
+            if (value == node.getValue()) {
+                found = true;
             }
-            if (value < nodeToFind.getData()) {
-                nodeToFind =nodeToFind.getLeft();
+            else if (value < node.getValue()) {
+                node =node.getLeft();
             } else {
-                nodeToFind= nodeToFind.getRight();
-                foundOrNot = true;
+                node = node.getRight();
+                found = true;
             }
         }
-        return foundOrNot;
+        return found;
     }
 
     @Override
     public int getLeftChild(int element) throws ChildNotFoundException {
         Node leftChildNode = root;
         int leftElement=0;
-        if(findElement(element)==true){
+        if(findElement(element)){
             leftChildNode = leftChildNode.getLeft();
-            leftElement = leftChildNode.getData();
+            leftElement = leftChildNode.getValue();
         }
         return leftElement;
     }
@@ -95,9 +96,9 @@ public class BinarySearchTree implements BinaryTree {
     public int getRightChild(int element) throws ChildNotFoundException {
         Node rightChildNode = root;
         int rightElement=0;
-        if(findElement(element)==true){
+        if(findElement(element)){
             rightChildNode = rightChildNode.getRight();
-            rightElement = rightChildNode.getData();
+            rightElement = rightChildNode.getValue();
         }
         return rightElement;
     }
@@ -105,28 +106,36 @@ public class BinarySearchTree implements BinaryTree {
     @Override
     public int[] getSortedTreeAsc() {
         int[] sortedArray =  new int [getNumberOfElements()];
-        return arrayHelperAsc(root,sortedArray);
+        return arrayHelperAsc(root, sortedArray);
     }
     @Override
     public int[] getSortedTreeDesc() {
         int[] sortedArray =  new int [getNumberOfElements()];
-        return arrayHelperDsc(root,sortedArray);
+        return arrayHelperDsc(root, sortedArray);
     }
+
     //helper class
-    private int[] arrayHelperAsc(Node currentNode , int[]array){
-        if (currentNode != null){
-            arrayHelperAsc(currentNode.getLeft(),array);
-            array[indexCount++] = currentNode.getData();
-            arrayHelperAsc(currentNode.getRight(),array);
+    private int[] arrayHelperAsc(Node node , int[] array){
+
+        if (node == null){
+            return array;
+        }
+        else {
+            arrayHelperAsc(node.getLeft(), array);
+            array[indexCount] = node.getValue();
+            indexCount++;
+            arrayHelperAsc(node.getRight(), array);
         }
         return array;
     }
-    private int[] arrayHelperDsc(Node currentNode , int[]array){
-        if (currentNode != null){
-            arrayHelperDsc(currentNode.getRight(),array);
-            array[indexCount2++] = currentNode.getData();
-            arrayHelperDsc(currentNode.getLeft(),array);
+    private int[] arrayHelperDsc(Node node , int[]array){
+        if (node == null){
+            return array;
         }
+
+        arrayHelperDsc(node.getRight(),array);
+        array[indexCount2++] = node.getValue();
+        arrayHelperDsc(node.getLeft(),array);
         return array;
     }
 }

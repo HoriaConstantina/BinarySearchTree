@@ -11,7 +11,7 @@ public class Node {
         data = number;
     }
 
-    public int getData() {
+    public int getValue() {
         return data;
     }
 
